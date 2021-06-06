@@ -1,4 +1,4 @@
-import util.Calculations;
+import util.Processing;
 import util.Output;
 import util.UsrInput;
 
@@ -31,17 +31,25 @@ Be sure you explicitly convert input to numerical data before doing any calculat
 public class SelfCheckOutApp {
 
     public static void main(String[] args) {
-        double item1Price = UsrInput.getPrice(1);
-        int item1Quantity = UsrInput.getQuantity(1);
-        double item2Price = UsrInput.getPrice(2);
-        int item2Quantity = UsrInput.getQuantity(2);
-        double item3Price = UsrInput.getPrice(3);
-        int item3Quantity = UsrInput.getQuantity(3);
+        String item1PriceStr = UsrInput.getPrice(1);
+        String item1QuantityStr = UsrInput.getQuantity(1);
+        String item2PriceStr = UsrInput.getPrice(2);
+        String item2QuantityStr = UsrInput.getQuantity(2);
+        String item3PriceStr = UsrInput.getPrice(3);
+        String item3QuantityStr = UsrInput.getQuantity(3);
 
-        double subtotal = Calculations.calcSubtotal(item1Price, item1Quantity, item2Price, item2Quantity, item3Price, item3Quantity);
-        double taxes = Calculations.calcTaxes(subtotal);
-        double total = Calculations.calcTotal(subtotal, taxes);
-        Output.printOutput(subtotal, taxes, total);
+        double item1Price = Processing.convertStringToIntPrice(item1PriceStr);
+        double item2Price = Processing.convertStringToIntPrice(item2PriceStr);
+        double item3Price = Processing.convertStringToIntPrice(item3PriceStr);
+        int item1Quantity = Processing.convertStringToIntQuantity(item1QuantityStr);
+        int item2Quantity = Processing.convertStringToIntQuantity(item2QuantityStr);
+        int item3Quantity = Processing.convertStringToIntQuantity(item3QuantityStr);
+
+        double subtotal = Processing.calcSubtotal(item1Price, item1Quantity, item2Price, item2Quantity, item3Price, item3Quantity);
+        double taxes = Processing.calcTaxes(subtotal);
+        double total = Processing.calcTotal(subtotal, taxes);
+        String output = Processing.stringConcatenation(subtotal, taxes, total);
+        Output.printOutput(output);
     }
 
 }
